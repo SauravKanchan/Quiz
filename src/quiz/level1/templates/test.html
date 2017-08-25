@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+{% for question in object_list %}
+<li><a href="{% url 'question-detail' question.id %}">{{ question.title }}</a></li>
+{% empty %}
+    <h1>No question yet.</h1>
+{% endfor %}
+{% endblock %}

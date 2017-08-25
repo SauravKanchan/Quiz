@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+<form class="form-inline my-2 my-lg-0"  role="search" method="get"  action="{% url 'profile' %}">
+    <input class="form-control mr-sm-2" type="text" placeholder="Reciept No" name="q">
+    <button class="btn btn-outline-primary my-2 my-ssm-0" type="submit">Submit <i class="fa fa-search"></i> </button>
+</form>
+{% endblock %}
