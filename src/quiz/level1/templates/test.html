@@ -1,7 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
 {% for question in questions %}
-<li><a href="{% url 'question-detail' question.id %}">{{ question.title }}</a></li>
+<li><a href="{% url 'question-detail' question.id %}">{{ question.title }} {% if question.id in answered %}
+ |answered
+{% endif %}{% if question.id in bookmarked %}
+|bookmarked
+{% endif %}
+
+</a></li>
 {% empty %}
     <h1>No question yet.</h1>
 {% endfor %}

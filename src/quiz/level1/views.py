@@ -13,6 +13,10 @@ class QuestionDetailView(DetailView):
         context['options']=[context['object'].right_answer,context['object'].wrong_answer_1,context['object'].wrong_answer_2,context['object'].wrong_answer_3]
         #Randomly shuffles the options.
         random.shuffle(context['options'])
+        response = Response.objects.get_or_create(user=self.request.user)
+        response = response[0]
+        context["bookmarked"]=response.get_bookmarked_questions()
+        context["answered"]=response.get_answered_questions()
         return context
 
 def test(request):
@@ -23,6 +27,7 @@ def test(request):
     questions = Question.objects.all().filter(id__in=seq)
     context['questions']=questions
     context['answered']=response.get_answered_questions()
+    context['bookmarked']=response.get_bookmarked_questions()
     return render(request,'test.html',context)
 
 def add_response(request):
@@ -31,6 +36,13 @@ def add_response(request):
         ans = request.POST["ans"]
         resp = Response.objects.get_or_create(user=request.user)
         resp=resp[0]
-        resp.update_answered_questions(int(question_id),ans)
-        for i in range(100):print("response:- ",question_id,ans,request.POST)
+        t=resp.update_answered_questions(int(question_id),ans)
+    return render_to_response('question_detail.html',{})
+
+def bookmark(request):
+    if request.method == "POST":
+        question_id=request.POST["question_id"]
+        resp = Response.objects.get_or_create(user=request.user)
+        resp=resp[0]
+        resp.update_bookmarked_questions(int(question_id))
     return render_to_response('question_detail.html',{})

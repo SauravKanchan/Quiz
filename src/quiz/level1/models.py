@@ -23,15 +23,13 @@ class Question(models.Model):
 
 class Response(models.Model):
     questions = Question.objects.all()
-    random.shuffle(questions)
     questions = questions[:settings.NUMBER_OF_QUESTIONS]
-    seq=""
+    seq=[]
     for i in questions:
-        seq += str(i.id)+","
-    try:
-        if seq[-1]==",":seq=seq[:-1]
-    except:
-        pass
+        seq.append(i.id)
+    random.shuffle(seq)
+    seq=str(seq)[1:-1]
+
 
     user=models.OneToOneField(User)
     start_time = models.TimeField(null=True ,blank=True)
@@ -55,9 +53,13 @@ class Response(models.Model):
             return list(map(int, self.bookmarked_questions.split(",")))
         return []
     def get_sequence(self):
-        for i in range(100):print(self.sequence[0],len(self.sequence))
+        """
+        
+        :return: list of question id's in sequence
+        """
         if len(self.sequence)>0:
             return list(map(int, self.sequence.split(",")))
+        return []
 
     def update_answered_questions(self,id,ans):
         """
@@ -66,12 +68,17 @@ class Response(models.Model):
         :param ans: answer given by user.
         :return: Updated dict of bookmarked_questions
         """
-        a = self.get_answered_questions()
-        if a[0]!="{":
-            a="{"+a+"}"
-        a=eval(a)
+        a = self.answered_questions
+        if len(a)>0:
+            if a[0]!="{":
+                a="{"+str(a)+"}"
+            for i in range(100):print(a,a[0],a[-1])
+            a=eval(a)
+        else:
+            a={}
         a[id]=ans
         self.answered_questions = str(a)
+        self.save()
         return a
 
     def update_bookmarked_questions(self, id):
@@ -86,6 +93,28 @@ class Response(models.Model):
         except:
             a.append(id)
         self.bookmarked_questions = str(a)[1:-1]
+        self.save()
         return a
+
+    def unmark_selection(self,id):
+        """
+        
+        :param id: Id of the question which has to be unmarked 
+        :return: updated dict of answered questions 
+        """
+        a = self.answered_questions
+        if len(a)>0:
+            if a[0]!="{":
+                a="{"+str(a)+"}"
+            for i in range(100):print(a,a[0],a[-1])
+            a=eval(a)
+        else:
+            a={}
+        try:
+            a[id]
+        except:
+            pass
+        return a
+
     def __str__(self):
         return str(self.user)+" - response"

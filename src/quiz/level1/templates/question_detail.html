@@ -2,16 +2,49 @@
 {% block content %}
     <h2>{{ object.title }}</h2>
     <h3>{{object.description}}</h3>
+    {% csrf_token %}
     {% for o in options %}
         <button class = "options" value="{{o}}" id="{{o}}">{{o}}</button><br>
     {% endfor %}
-
+    <button id="bookmark" class="btn btn-primary">{% if object.id in bookmarked %}Remove Bookmark{% else %}Bookmark this question{% endif%}</button>
+    <a href="{% url 'level1' %}">Summary</a>
+    <p id="message"></p>
     <script type="text/javascript">
-        var op = document.getElementsByClassName("options")
-        for (var i=0;i<op.length;i++){
-            op[i]
-        }
+        $(".options").each(function () {
+            $(this).on("click",function () {
+                var answer=$(this).val();
+                $.post({
+                    url:"{% url 'add_response'%}",
+                    data:{
+                        question_id :"{{ object.id }}",
+                        ans:answer,
+                        csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
 
+                    },
+                    success:function () {
+                        $("#message").text("Recorded your answer as "+answer)
+                        $(this).css("class","btn btn-primary");
+                    }
+                })
+            })
+        });
+        $("#bookmark").on("click",function () {
+            $.post({
+                    url:"{% url 'bookmark'%}",
+                    data:{
+                        question_id :"{{ object.id }}",
+                        csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+
+                    },
+                    success:function () {
+                        if ($("#bookmark").text() == "Remove Bookmark"){
+                            $("#bookmark").text("Bookmark this question");
+                        }else{
+                            $("#bookmark").text("Remove Bookmark");
+                        }
+                    }
+                })
+        })
     </script>
 
 {% endblock %}
