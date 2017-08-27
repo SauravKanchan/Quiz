@@ -1,8 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>{{ object.title }}</h2>
-<h3>{{object.description}}</h3>
-{% for o in options %}
-<input type="checkbox" value="{{0}}"/>{{o}}<br>
-{% endfor %}
+    <h2>{{ object.title }}</h2>
+    <h3>{{object.description}}</h3>
+    {% for o in options %}
+        <button class = "options" value="{{o}}" id="{{o}}">{{o}}</button><br>
+    {% endfor %}
+
+    <script type="text/javascript">
+        var op = document.getElementsByClassName("options")
+        for (var i=0;i<op.length;i++){
+            op[i]
+        }
+
+    </script>
+
 {% endblock %}
+

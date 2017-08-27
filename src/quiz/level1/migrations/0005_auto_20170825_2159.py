@@ -15,11 +15,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='question',
             name='right_answer_counts',
-            field=models.PositiveIntegerField(default=0, max_length=10),
+            field=models.PositiveIntegerField(default=0),
         ),
         migrations.AlterField(
             model_name='question',
             name='wrong_answer_counts',
-            field=models.PositiveIntegerField(default=0, max_length=10),
+            field=models.PositiveIntegerField(default=0),
         ),
     ]
