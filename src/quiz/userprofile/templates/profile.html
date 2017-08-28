@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
 {% block content %}
 Hello {{username}}
-<a href="/level1">Level 1</a>
+<a href="{% url 'start_test' %}">Level 1</a>
 {% endblock %}

@@ -1,15 +1,52 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2>{{ object.title }}</h2>
-    <h3>{{object.description}}</h3>
-    {% csrf_token %}
-    {% for o in options %}
-        <button class = "options" value="{{o}}" id="{{o}}">{{o}}</button><br>
-    {% endfor %}
-    <button id="bookmark" class="btn btn-primary">{% if object.id in bookmarked %}Remove Bookmark{% else %}Bookmark this question{% endif%}</button>
-    <a href="{% url 'level1' %}">Summary</a>
-    <p id="message"></p>
+{% if valid %}
+<div id="demo"></div>
+    <div id="counter"></div>
+        <h2>{{ object.title }}</h2>
+        <h3>{{object.description}}</h3>
+        {% csrf_token %}
+        {% for o in options %}
+            <button class = "options" value="{{o}}" id="{{o}}">{{o}}</button><br>
+        {% endfor %}
+        <button id="bookmark" class="btn btn-primary">{% if object.id in bookmarked %}Remove Bookmark{% else %}Bookmark this question{% endif%}</button>
+        <a href="{% url 'level1' %}">Summary</a>
+        <p id="message"></p>
+{% else %}
+Timeout
+{% endif %}
     <script type="text/javascript">
+
+// Set the date we're counting down to
+var countDownDate = new Date(2017, 7, 29, 0, 0, 0, 0);
+
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get todays date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now an the count down date
+  var distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="demo"
+  document.getElementById("demo").innerHTML = days + "d " +  hours + "h "
+  + minutes + "m " + seconds + "s ";
+
+  // If the count down is finished, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("demo").innerHTML = "EXPIRED";
+  }
+}, 1000);
+
         $(".options").each(function () {
             $(this).on("click",function () {
                 var answer=$(this).val();
@@ -45,6 +82,23 @@
                     }
                 })
         })
+
+
+//                Disable Mouse Right Click, Cut, Copy & Paste
+        $(document).ready(function () {
+            //Disable cut copy paste
+            $('body').bind('cut copy paste', function (e) {
+                e.preventDefault();
+            });
+
+            //Disable mouse right click
+            $("body").on("contextmenu",function(e){
+                return false;
+            });
+        });
+
+
+
     </script>
 
 {% endblock %}

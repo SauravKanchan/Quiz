@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
 import random
-
+from datetime import datetime
+from collections import OrderedDict
 # Create your models here.
 
 class Question(models.Model):
@@ -22,21 +23,34 @@ class Question(models.Model):
         return self.title
 
 class Response(models.Model):
-    questions = Question.objects.all()
-    questions = questions[:settings.NUMBER_OF_QUESTIONS]
-    seq=[]
-    for i in questions:
-        seq.append(i.id)
-    random.shuffle(seq)
-    seq=str(seq)[1:-1]
-
 
     user=models.OneToOneField(User)
     start_time = models.TimeField(null=True ,blank=True)
-    answered_questions = models.CharField(max_length=200 ,blank=True)
-    bookmarked_questions = models.CharField(max_length=200 ,blank=True)
-    sequence = models.CharField(default=seq,max_length=200 ,blank=True)
+    answered_questions = models.CharField(max_length=2000 ,blank=True)
+    bookmarked_questions = models.CharField(max_length=2000 ,blank=True)
+    sequence = models.CharField(max_length=2500 ,blank=True)
 
+    def set_sequence(self):
+        questions = Question.objects.all()
+        seq = []
+        for i in questions:
+            seq.append(i.id)
+
+        random.shuffle(seq)
+        random.shuffle(seq)
+
+        seq = seq[:settings.NUMBER_OF_QUESTIONS]
+
+        s = OrderedDict()
+        for i in seq:
+            q = Question.objects.get(id=i)
+            a = [q.right_answer, q.wrong_answer_1, q.wrong_answer_2, q.wrong_answer_3]
+            random.shuffle(a)
+            s[i] = a
+        s = str(s)
+
+        self.sequence=s
+        self.save()
 
     def get_answered_questions(self):
         a=self.answered_questions
@@ -57,9 +71,14 @@ class Response(models.Model):
         
         :return: list of question id's in sequence
         """
-        if len(self.sequence)>0:
-            return list(map(int, self.sequence.split(",")))
-        return []
+        if len(self.sequence)==0:
+            self.set_sequence()
+        s=eval(self.sequence)
+        return list(map(int,s.keys()))
+
+    def get_options(self,pk):
+        s=eval(self.sequence)
+        return eval(self.sequence)[pk]
 
     def update_answered_questions(self,id,ans):
         """
@@ -116,5 +135,9 @@ class Response(models.Model):
             pass
         return a
 
+    def start_test(self):
+        self.start_time = datetime.now()
+        self.save()
+        return self.start_time
     def __str__(self):
         return str(self.user)+" - response"
