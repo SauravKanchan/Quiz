@@ -1,5 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
-Hello {{username}}
-<a href="/level1">Level 1</a>
+<h3 class="page-header">Hello {{username}}</h3>
+
+<div class='col-md-3'>
+    <h3 class="page-header" align='center'>Levels</h3>
+    <ul class="list-group">
+      <h3>
+	     <li class="list-group-item">
+	         <a href="/level1">Level 1</a>    
+	         
+	    </li> 
+    </h3>  
+  
+    </ul>
+    
+</div>
+
 {% endblock %}
