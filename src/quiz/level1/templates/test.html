@@ -57,6 +57,7 @@ var x = setInterval(function() {
   if (distance < 0) {
     clearInterval(x);
     document.getElementById("timer").innerHTML = "EXPIRED";
+        window.location.replace("/level1/endtest");
   }
 }, 1000);
 

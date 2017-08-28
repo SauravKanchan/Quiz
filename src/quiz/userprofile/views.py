@@ -7,7 +7,8 @@ from django.contrib import messages
 def get_user_data(reciept_no):
     d={'12345':'Saurav',
        '11111': 'Kanchan',
-       '99999': 'demo'}
+       '99999': 'demo',
+       '22222':'neel'}
     try:
         return d[reciept_no]
     except:

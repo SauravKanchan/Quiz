@@ -30,7 +30,7 @@ class QuestionDetailView(DetailView):
                 context["previous"] = ls[current_index - 1]
 
         else:
-            context["valid"]=False
+            return redirect("level1/endtest")
         return context
 
 def test(request):
@@ -49,7 +49,7 @@ def test(request):
             context['bookmarked']=response.get_bookmarked_questions()
             context["time"] = response.get_expiry_time()
         else:
-            context={"valid":False}
+            return redirect("level1/endtest")
         return render(request,'test.html',context)
     else:
         messages.add_message(request, messages.INFO, 'You have already completed this test')
@@ -91,7 +91,10 @@ def end_test(request):
     l={}
     users = User.objects.all()
     for i in users:
-        l[i]=i.profile.points
+        try:
+            if int(i.profile.completed_levels)>=1:
+                l[i]=i.profile.points
+        except:pass
     leaderboard = sorted(l.items(), key=operator.itemgetter(1))
     leaderboard.reverse()
     return render(request,"end_test.html",{"score":score,"leaderboard":leaderboard})

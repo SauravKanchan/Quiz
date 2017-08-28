@@ -130,6 +130,6 @@ STATICFILES_DIRS = [
 
 
 NUMBER_OF_QUESTIONS = 10
-LEVEL1_TIME_LIMIT = 30 #In minutes
+LEVEL1_TIME_LIMIT = 4 #In minutes
 LEVEL1_POINTS = 10 # default points of level1 question
 LEVEL1_NEGATIVE_POINTS = 0
