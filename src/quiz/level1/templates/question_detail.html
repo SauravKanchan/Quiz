@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 {% if valid %}
-<div id="demo"></div>
+<div id="timer" class="well  pull-right"></div>
     <div id="counter"></div>
         <h2>{{ object.title }}</h2>
         <h3>{{object.description}}</h3>
@@ -12,13 +12,21 @@
         <button id="bookmark" class="btn btn-primary">{% if object.id in bookmarked %}Remove Bookmark{% else %}Bookmark this question{% endif%}</button>
         <a href="{% url 'level1' %}">Summary</a>
         <p id="message"></p>
+        <a class="btn btn-danger" href="/level1/endtest">End Test</a>
+        {% if next %}
+<a href="{% url 'question-detail' next %}" class="btn btn-primary">Next</a>
+        {% endif %}
+{% if previous %}
+<a href="{% url 'question-detail' previous %}" class="btn btn-primary">Previous</a>
+        {% endif %}
 {% else %}
-Timeout
+Invalid session
 {% endif %}
+
     <script type="text/javascript">
 
 // Set the date we're counting down to
-var countDownDate = new Date(2017, 7, 29, 0, 0, 0, 0);
+var countDownDate = new Date("{{time}}");
 
 
 // Update the count down every 1 second
@@ -36,14 +44,16 @@ var x = setInterval(function() {
   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-  // Display the result in the element with id="demo"
-  document.getElementById("demo").innerHTML = days + "d " +  hours + "h "
+  // Display the result in the element with id="timer"
+  document.getElementById("timer").innerHTML = days + "d " +  hours + "h "
   + minutes + "m " + seconds + "s ";
 
   // If the count down is finished, write some text
   if (distance < 0) {
     clearInterval(x);
-    document.getElementById("demo").innerHTML = "EXPIRED";
+    document.getElementById("timer").innerHTML = "EXPIRED";
+    window.location.replace("/level1/endtest");
+
   }
 }, 1000);
 

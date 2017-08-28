@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
 import random
-from datetime import datetime
+from datetime import datetime,timedelta
 from collections import OrderedDict
 # Create your models here.
 
@@ -15,6 +15,9 @@ class Question(models.Model):
     wrong_answer_3 = models.CharField(max_length=500)
     right_answer_counts = models.PositiveIntegerField(default=0)
     wrong_answer_counts = models.PositiveIntegerField(default=0)
+    point = models.PositiveIntegerField(default=settings.LEVEL1_POINTS)
+    text="If you want to set -1 as negative points then enter 1 here"
+    negative_points = models.PositiveIntegerField(default=settings.LEVEL1_NEGATIVE_POINTS,help_text=text)
 
     def get_percentage_righ(self):
         return (self.right_answer_counts*100)/(self.right_answer_counts+self.wrong_answer_counts)
@@ -91,7 +94,6 @@ class Response(models.Model):
         if len(a)>0:
             if a[0]!="{":
                 a="{"+str(a)+"}"
-            for i in range(100):print(a,a[0],a[-1])
             a=eval(a)
         else:
             a={}
@@ -125,7 +127,6 @@ class Response(models.Model):
         if len(a)>0:
             if a[0]!="{":
                 a="{"+str(a)+"}"
-            for i in range(100):print(a,a[0],a[-1])
             a=eval(a)
         else:
             a={}
@@ -139,5 +140,39 @@ class Response(models.Model):
         self.start_time = datetime.now()
         self.save()
         return self.start_time
+
+    def expired(self):
+        """
+        
+        :return: True if expired and vicersa
+        """
+        return datetime.combine(datetime.today(),self.start_time) + timedelta(minutes = settings.LEVEL1_TIME_LIMIT) < datetime.now()
+
+    def get_expiry_time(self):
+        """
+        
+        :return: dateString to feed counter 
+        """
+        time = datetime.combine(datetime.today(),self.start_time) + timedelta(minutes = settings.LEVEL1_TIME_LIMIT)
+        return str(time)
+
+    def score(self):
+        a = self.answered_questions
+        if len(a) > 0:
+            if a[0] != "{":
+                a = "{" + str(a) + "}"
+            a = eval(a)
+        else:
+            a = {}
+        c=0
+        q = Question.objects.all()
+        for i in a:
+            ques = q.get(id=i)
+            if ques.right_answer == a[i]:
+                c+=ques.point
+            else:
+                c-=ques.negative_points
+        return c
+
     def __str__(self):
         return str(self.user)+" - response"

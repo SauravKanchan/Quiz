@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+Your Score is {{score}}
+<br><br>
+<h4>Current LeaderBoard</h4>
+{% for user,points in leaderboard %}
+<br>{{user}}-----{{points}}
+{% endfor %}
+{% endblock %}

@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-Hello {{username}}
+Hello {{ request.user.username }}
+{% if request.user.profile.completed_levels < "1" %}
 <a href="{% url 'start_test' %}">Level 1</a>
+{% else %}
+{{request.user.profile.completed_levels }}
+<a href="{% url 'end_test' %}">View your Level 1 Report </a>
+{% endif %}
+<br><a href="{% url 'logout' %}">Logout</a>
+
 {% endblock %}
