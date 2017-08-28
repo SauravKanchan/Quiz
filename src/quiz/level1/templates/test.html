@@ -1,71 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container-fluid">
-<div class='col-md-9'>
-{% if questions %}
-    <h3 class="page-header" align='center'>Questions</h3>
-    <ol class="list-group">
-    {% for question in questions %}
-      <h4>
-
-     <li class="list-group-item">
-             <a href="{% url 'question-detail' question.id %}">
-            {{ question.title }}
-   
-        </a>  
-         
-    </li> 
-    </h4>  
-    {% endfor %}
-    </ol>
-
-{% else %}
-    <div class='alert alert-warning' align='center'>
-        <h3>No Questions Yet!</h3>
-    </div>
+{% for question in questions %}
+<li><a href="{% url 'question-detail' question.id %}">{{ question.title }} {% if question.id in answered %}
+ |answered
+{% endif %}{% if question.id in bookmarked %}
+|bookmarked
 {% endif %}
-</div>
 
-<div class='col-md-3'>
-    <h3 class="page-header" align='center'>Bookmarked</h3>
-    
-        {% if questions %}
-            {% for question in questions %}
-            	{% if question.id in bookmarked %}
-	            	<button type="button" class="btn btn-md">
-		                <a href="{% url 'question-detail' question.id %}">{{question.id}}</a>
-		            </button>
-	            {% endif %}
-            
-            {% endfor %}
-        {% else %}
-            <div class='alert alert-warning'>No Bookmarks</div>
-        {% endif %}
-    
-</div>
-<div class='col-md-3'>
-    <h3 class="page-header" align='center'>Answered</h3>
-    
-        {% if questions %}
-            {% for question in questions %}
-            	{% if question.id in answered %}
-	            	<button type="button" class="btn btn-md">
-		                <a href="{% url 'question-detail' question.id %}">{{question.id}}</a>
-		            </button>
-	            {% endif %}
-            
-            {% endfor %}
-        {% else %}
-            <div class='alert alert-warning'>No Answers yet!</div>
-        {% endif %}
-    
-</div>
-</div>
-<div class="row">
-   <div class="col-lg-8 col-lg-offset-4">
-   	<button type="button" class="btn btn-danger btn-lg">Submit</button>
-   </div>
-</div>
-
-
+</a></li>
+{% empty %}
+    <h1>No question yet.</h1>
+{% endfor %}
 {% endblock %}
