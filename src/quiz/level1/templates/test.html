@@ -8,11 +8,7 @@
     <ol class="list-group">
     {% for question in questions %}
      <h4>
-    <li><a href="{% url 'question-detail' question.id %}">{{ question.title }} {% if question.id in answered %}
-     |answered
-    {% endif %}{% if question.id in bookmarked %}
-    |bookmarked
-    {% endif %}
+    <li><a href="{% url 'question-detail' question.id %}">{{ question.title }}
     </a></li>
     </h4>
     {% empty %}
@@ -21,7 +17,7 @@
     </ol>
       <div class="row">
        <div class="col-lg-8 col-lg-offset-4">
-        <button type="button" class="btn btn-danger btn-lg">End Test</button>
+        <a class="btn btn-danger btn-lg" href="{% url 'end_test' %}">End Test</a>
        </div>
       </div>
 </div>

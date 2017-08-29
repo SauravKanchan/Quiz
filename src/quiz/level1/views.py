@@ -93,7 +93,7 @@ def end_test(request):
     for i in users:
         try:
             if int(i.profile.completed_levels)>=1:
-                l[i]=i.profile.points
+                l[i.first_name]=i.profile.points
         except:pass
     leaderboard = sorted(l.items(), key=operator.itemgetter(1))
     leaderboard.reverse()
