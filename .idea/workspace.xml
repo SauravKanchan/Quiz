@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b369b592-4a58-455e-9065-8a8e0dc403e3" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/quiz/userprofile/templates/jquery-3.2.1.min.js" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/quiz/db.sqlite3" afterPath="$PROJECT_DIR$/src/quiz/db.sqlite3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/quiz/level1/templates/test.html" afterPath="$PROJECT_DIR$/src/quiz/level1/templates/test.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/quiz/level1/views.py" afterPath="$PROJECT_DIR$/src/quiz/level1/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/quiz/quiz/middleware/AuthRequiredMiddleware.py" afterPath="$PROJECT_DIR$/src/quiz/quiz/middleware/AuthRequiredMiddleware.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/quiz/quiz/settings.py" afterPath="$PROJECT_DIR$/src/quiz/quiz/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/quiz/userprofile/templates/base.html" afterPath="$PROJECT_DIR$/src/quiz/userprofile/templates/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/quiz/userprofile/templates/profile.html" afterPath="$PROJECT_DIR$/src/quiz/userprofile/templates/profile.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/quiz/userprofile/views.py" afterPath="$PROJECT_DIR$/src/quiz/userprofile/views.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
