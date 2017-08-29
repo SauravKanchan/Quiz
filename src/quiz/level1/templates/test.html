@@ -1,18 +1,67 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="container-fluid">
+<div class='col-md-9'>
 {% if valid %}
-<div class="well pull-right" id="timer"></div>
+    <div class="well pull-right" id="timer"></div>
+    <h3 class="page-header" align='center'>Questions</h3>
+    <ol class="list-group">
     {% for question in questions %}
+     <h4>
     <li><a href="{% url 'question-detail' question.id %}">{{ question.title }} {% if question.id in answered %}
      |answered
     {% endif %}{% if question.id in bookmarked %}
     |bookmarked
     {% endif %}
     </a></li>
+    </h4>
     {% empty %}
         <h1>No question yet.</h1>
     {% endfor %}
-        <a class="btn btn-danger" href="/level1/endtest">End Test</a>
+    </ol>
+      <div class="row">
+       <div class="col-lg-8 col-lg-offset-4">
+        <button type="button" class="btn btn-danger btn-lg">End Test</button>
+       </div>
+      </div>
+</div>
+<div class='col-md-3'>
+    <h3 class="page-header" align='center'>Bookmarked</h3>
+    
+        {% if questions %}
+            {% for question in questions %}
+              {% if question.id in bookmarked %}
+                <a href="{% url 'question-detail' question.id %}">
+                  <button type="button" class="btn btn-md">{{question.id}}</button>
+                </a>
+                
+              {% endif %}
+            
+            {% endfor %}
+        {% else %}
+            <div class='alert alert-warning'>No Bookmarks</div>
+        {% endif %}
+    
+</div>
+<div class='col-md-3'>
+    <h3 class="page-header" align='center'>Answered</h3>
+    
+        {% if questions %}
+            {% for question in questions %}
+              {% if question.id in answered %}
+                    <a href="{% url 'question-detail' question.id %}">
+                      <button type="button" class="btn btn-md">{{question.id}}</button>
+                    </a>
+               
+              {% endif %}
+            
+            {% endfor %}
+        {% else %}
+            <div class='alert alert-warning'>No Answers yet!</div>
+        {% endif %}
+    
+</div>
+</div>
 
     <!--Disable Mouse Right Click, Cut, Copy & Paste-->
 

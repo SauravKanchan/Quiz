@@ -1,28 +1,48 @@
 {% extends 'base.html' %}
 {% block content %}
 {% if valid %}
+<div class="container-fluid">
 <div id="timer" class="well  pull-right"></div>
     <div id="counter"></div>
-        <h2>{{ object.title }}</h2>
-        <h3>{{object.description}}</h3>
+    <div class='col-md-9'>
+    
+        <div class="panel panel-default">
+          <div class="panel-heading"><span>Q: </span>{{ object.title }}</div>
+          <div class="panel-body"><h3>{{object.description}}</h3></div>
+        </div>
         {% csrf_token %}
+        <div class="panel panel-default">
+        <div class="panel-heading">
+        <ol>
         {% for o in options %}
-            <button class = "options" value="{{o}}" id="{{o}}">{{o}}</button><br>
+        
+          <li>
+            <p><button class = "options" value="{{o}}" id="{{o}}">{{o}}</button></p>
+          </li>
+            
         {% endfor %}
+        </ol>
         <button id="bookmark" class="btn btn-primary">{% if object.id in bookmarked %}Remove Bookmark{% else %}Bookmark this question{% endif%}</button>
-        <a href="{% url 'level1' %}">Summary</a>
-        <p id="message"></p>
-        <a class="btn btn-danger" href="/level1/endtest">End Test</a>
         {% if next %}
-<a href="{% url 'question-detail' next %}" class="btn btn-primary">Next</a>
+           <a href="{% url 'question-detail' next %}" class="btn btn-primary">Next</a>
         {% endif %}
-{% if previous %}
-<a href="{% url 'question-detail' previous %}" class="btn btn-primary">Previous</a>
+        <a class="btn btn-info" href="{% url 'level1' %}">Summary</a>
+        
+        {% if previous %}
+        <a href="{% url 'question-detail' previous %}" class="btn btn-primary">Previous</a>
         {% endif %}
+        <a class="btn btn-danger" href="/level1/endtest">End Test</a>
+        <p id="message"></p>
+        </div>
+        </div>
+
+
 {% else %}
 Invalid session
 {% endif %}
 
+</div>
+</div>
     <script type="text/javascript">
 
 // Set the date we're counting down to
