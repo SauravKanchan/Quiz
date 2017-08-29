@@ -12,7 +12,9 @@ def get_user_data(reciept_no):
        '22222':'neel',
        '66666':'lol',
        '00000':'superman',
-       '20006':'shreya'}
+       '20006':'shreya',
+       '20000':'Yash',
+       '10000':'Puthran'}
     try:
         return d[reciept_no]
     except:
