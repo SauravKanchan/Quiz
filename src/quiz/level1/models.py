@@ -137,8 +137,9 @@ class Response(models.Model):
         return a
 
     def start_test(self):
-        self.start_time = datetime.now()
-        self.save()
+        if not self.start_time:
+            self.start_time = datetime.now()
+            self.save()
         return self.start_time
 
     def expired(self):

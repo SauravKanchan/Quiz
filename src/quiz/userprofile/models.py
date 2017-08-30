@@ -7,7 +7,7 @@ from django.dispatch import receiver
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     points = models.IntegerField(default=0)
-    completed_levels = models.CharField(max_length=500,default=0)
+    completed_levels = models.PositiveIntegerField(max_length=500,default=0)
 
     def update_level(self,level):
         self.completed_levels = level

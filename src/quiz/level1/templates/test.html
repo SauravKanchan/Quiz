@@ -9,7 +9,12 @@
     {% for question in questions %}
      <h4>
     <li><a href="{% url 'question-detail' question.id %}">{{ question.title }}
-    </a></li>
+    </a>{% if question.id in answered %}
+         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{% endif %}
+                  {% if question.id in bookmarked %}
+         <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>{% endif %}
+
+    </li>
     </h4>
     {% empty %}
         <h1>No question yet.</h1>
@@ -20,42 +25,6 @@
         <a class="btn btn-danger btn-lg" href="{% url 'end_test' %}">End Test</a>
        </div>
       </div>
-</div>
-<div class='col-md-3'>
-    <h3 class="page-header" align='center'>Bookmarked</h3>
-    
-        {% if questions %}
-            {% for question in questions %}
-              {% if question.id in bookmarked %}
-                <a href="{% url 'question-detail' question.id %}">
-                  <button type="button" class="btn btn-md">{{question.id}}</button>
-                </a>
-                
-              {% endif %}
-            
-            {% endfor %}
-        {% else %}
-            <div class='alert alert-warning'>No Bookmarks</div>
-        {% endif %}
-    
-</div>
-<div class='col-md-3'>
-    <h3 class="page-header" align='center'>Answered</h3>
-    
-        {% if questions %}
-            {% for question in questions %}
-              {% if question.id in answered %}
-                    <a href="{% url 'question-detail' question.id %}">
-                      <button type="button" class="btn btn-md">{{question.id}}</button>
-                    </a>
-               
-              {% endif %}
-            
-            {% endfor %}
-        {% else %}
-            <div class='alert alert-warning'>No Answers yet!</div>
-        {% endif %}
-    
 </div>
 </div>
 

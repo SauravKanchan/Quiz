@@ -14,7 +14,10 @@ def get_user_data(reciept_no):
        '00000':'superman',
        '20006':'shreya',
        '20000':'Yash',
-       '10000':'Puthran'}
+       '10000':'Puthran',
+       '30000':'Aditi',
+       '40000':'batman',
+       '50000':'hulk'}
     try:
         return d[reciept_no]
     except:
@@ -31,7 +34,7 @@ def profile(request):
         login(request, user[0])
     except:
         username=request.user.first_name
-    return render(request,'profile.html',context={'username':username,'completed':request.user.profile.completed_levels < '1'})
+    return render(request,'profile.html',context={'username':username,'completed':request.user.profile.completed_levels < 1})
 
 def logout_view(request):
     logout(request)

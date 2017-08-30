@@ -30,7 +30,8 @@ class QuestionDetailView(DetailView):
                 context["previous"] = ls[current_index - 1]
 
         else:
-            return redirect("level1/endtest")
+            context["valid"]=False
+            return context
         return context
 
 def test(request):
@@ -43,7 +44,7 @@ def test(request):
             q=Question.objects.all()
             for i in seq:
                 questions.append(q.get(id=i))
-            context={"valid":True}
+            context={'valid':True}
             context['questions']=questions
             context['answered']=response.get_answered_questions()
             context['bookmarked']=response.get_bookmarked_questions()
