@@ -16,7 +16,7 @@ class AuthRequiredMiddleware(object):
 
         response = self.get_response(request)
         url = request.path_info
-        if not request.user.is_authenticated() and url !="/":
+        if not request.user.is_authenticated() and url !="/" and ("admin" not in url):
             return HttpResponseRedirect('/')
 
         # Code to be executed for each request/response after

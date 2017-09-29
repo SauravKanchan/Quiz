@@ -5,7 +5,7 @@
 <div id="timer" class="well  pull-right"></div>
     <div id="counter"></div>
     <div class='col-md-9'>
-    
+
         <div class="panel panel-default">
           <div class="panel-heading"><span>Q: </span>{{ object.title }}</div>
           <div class="panel-body"><h3>{{object.description}}</h3></div>
@@ -15,11 +15,11 @@
         <div class="panel-heading">
         <ol>
         {% for o in options %}
-        
+
           <li>
             <p><button class = "options" value="{{o}}" id="{{o}}">{{o}}</button></p>
           </li>
-            
+
         {% endfor %}
         </ol>
         <button id="bookmark" class="btn btn-primary">{% if object.id in bookmarked %}Remove Bookmark{% else %}Bookmark this question{% endif%}</button>
@@ -27,7 +27,7 @@
            <a href="{% url 'question-detail' next %}" class="btn btn-primary">Next</a>
         {% endif %}
         <a class="btn btn-info" href="{% url 'level1' %}">Summary</a>
-        
+
         {% if previous %}
         <a href="{% url 'question-detail' previous %}" class="btn btn-primary">Previous</a>
         {% endif %}
@@ -132,4 +132,3 @@ var x = setInterval(function() {
     </script>
 
 {% endblock %}
-

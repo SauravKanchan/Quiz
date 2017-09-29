@@ -17,7 +17,9 @@ def get_user_data(reciept_no):
        '10000':'Puthran',
        '30000':'Aditi',
        '40000':'batman',
-       '50000':'hulk'}
+       '50000':'hulk',
+       '60000':'timepass',
+       '33333':'Kunal'}
     try:
         return d[reciept_no]
     except:
