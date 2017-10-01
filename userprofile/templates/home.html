@@ -3,17 +3,19 @@
 
 {% block content %}
 
-  <div class="jumbotron">
-    <h1>Quiz Heading</h1> 
-    <p>Bootstrap is the most popular HTML, CSS, and JS framework for developing
-    responsive, mobile-first projects on the web.</p> 
-  </div>
+<div class="col-sm-5 col-xs-12  img-holder jumbotron">
+                <h1 class="text-center">Web Daemon</h1>
+                <p class="holder-text">CSI RAIT'S Techmate 2k17 ushers forth  a look-in to limn your web development skills,providing you with platter of the choicest web development gizmos including html,css and javascript.The final play-offs includes responsive web designing and javascript animation
+'WEB DAEMON' welcomes you to the colloseum of web development!</p>
+            </div>
  
 
-<form class="form-inline my-2 my-lg-0"  role="search" method="get"  action="{% url 'profile' %}">
+<form class=" col-sm-6 col-xs-12 "  role="search" method="get"  action="{% url 'profile' %}">
+        {% load staticfiles %}
+    <img src="{% static 'userprofile/img/wdlogo.jpg' %}" class="img-responsive"><br>
     <input class="form-control mr-sm-2" type="text" placeholder="Reciept No" name="q"><br>
     <input class="form-control mr-sm-2" type="text" placeholder="Username" name="r"><br>
     <input class="form-control mr-sm-2" type="text" placeholder="Secret Key" name="k"><br>
-    <button class="btn btn-outline-primary my-2 my-ssm-0 btn-primary" type="submit">Submit <i class="fa fa-search"></i> </button>
+    <button class="btn  btn-primary col-sm-offset-5" type="submit">Submit</button>
 </form>
 {% endblock %}
