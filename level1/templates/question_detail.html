@@ -15,9 +15,8 @@
         <div class="panel-heading">
         <ol>
         {% for o in options %}
-
-          <li>
-            <p><button class = "options" value="{{o}}" id="{{o}}">{{o}}</button></p>
+            <li>
+            <p><button class = "options btn" value="{{o}}" id="{{o}}">{{o}}</button></p>
           </li>
 
         {% endfor %}
@@ -44,6 +43,7 @@ Invalid session
 </div>
 </div>
     <script type="text/javascript">
+
 
 // Set the date we're counting down to
 var countDownDate = new Date("{{time}}");
@@ -79,6 +79,8 @@ var x = setInterval(function() {
 
         $(".options").each(function () {
             $(this).on("click",function () {
+                $(".options").css("background-color","#DDDDDD");
+                $(this).css("background-color","#38A8E8");
                 var answer=$(this).val();
                 $.post({
                     url:"{% url 'add_response'%}",
@@ -129,6 +131,10 @@ var x = setInterval(function() {
 
 
 
+        {% if answered_option %}
+            $("#{{answered_option}}").css("background-color","#38A8E8");
+
+        {% endif %}
     </script>
 
 {% endblock %}

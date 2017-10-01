@@ -17,6 +17,7 @@ class QuestionDetailView(DetailView):
         response = Response.objects.get_or_create(user=self.request.user)
         response = response[0]
         context["options"]=response.get_options(int(self.kwargs['pk']))
+        context['answered_option']=response.get_answer(int(self.kwargs['pk']))
         if not response.expired() and int(self.request.user.profile.completed_levels) < 1:
             context["valid"]=True
             context["bookmarked"]=response.get_bookmarked_questions()

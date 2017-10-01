@@ -105,6 +105,20 @@ class Response(models.Model):
         self.save()
         return a
 
+    def get_answer(self,id):
+        a = self.answered_questions
+        if len(a) > 0:
+            if a[0] != "{":
+                a = "{" + str(a) + "}"
+            a = eval(a)
+        else:
+            a = {}
+        try:
+            return a[id]
+        except:
+            return False
+
+
     def update_bookmarked_questions(self, id):
         """
 
