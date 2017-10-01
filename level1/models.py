@@ -7,12 +7,15 @@ from collections import OrderedDict
 # Create your models here.
 
 class Question(models.Model):
+
+    SETS = [('A','A'),('B','B'),('C','C'),('D','D')]
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=1000)
     right_answer = models.CharField(max_length=500)
     wrong_answer_1 = models.CharField(max_length=500)
     wrong_answer_2 = models.CharField(max_length=500)
     wrong_answer_3 = models.CharField(max_length=500)
+    set = models.CharField(max_length=2,choices=SETS,default="A")
     right_answer_counts = models.PositiveIntegerField(default=0)
     wrong_answer_counts = models.PositiveIntegerField(default=0)
     point = models.PositiveIntegerField(default=settings.LEVEL1_POINTS)
@@ -34,7 +37,7 @@ class Response(models.Model):
     sequence = models.CharField(max_length=2500 ,blank=True)
 
     def set_sequence(self):
-        questions = Question.objects.all()
+        questions = Question.objects.filter(set=random.choice(['A','B','C','D']))
         seq = []
         for i in questions:
             seq.append(i.id)
