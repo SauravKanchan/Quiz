@@ -6,16 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>{% block title %}Quiz{% endblock title %}</title>
+    <title>{% block title %}Web Daemon{% endblock title %}</title>
     
     {% load staticfiles %}
     <link href="{% static 'userprofile/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
-     <link href="{% static 'userprofile/css/theme.css' %}" rel="stylesheet" type="text/css"/>
     <script src="{% static 'userprofile/js/jquery.min.js'%}"></script>
     <script src="{% static 'userprofile/js/bootstrap.min.js' %}"></script>
 </head>
 <body role="document">
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="navbar navbar-default " role="navigation">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -24,12 +23,12 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="{% url 'home' %}">Home</a>
-                <a class="navbar-brand" href="{% url 'level1' %}">Level 1</a>
                 <!--<a class="navbar-brand" href="{% url 'profile' %}">Profile</a>-->
                 {% if user.is_authenticated %}
                     <a class="navbar-brand" href="{% url 'profile' %}">{{ user.get_full_name|truncatechars:20 }}</a>
-                {% endif %}
                 <a class="navbar-brand" href="{% url 'logout' %}">Logout</a>
+
+                {% endif %}
             </div>
             {% block navbar-menu %}
   
@@ -62,7 +61,7 @@
           </div>
           <div class="col-lg-6 text-right">
             Connect with us on
-            <a href="#"><i class="fa fa-github"></i> GitHub</a> or
+            <a href="https://github.com/SauravKanchan"><i class="fa fa-github"></i> GitHub</a> or
             <a href="#"><i class="fa fa-twitter"></i> Twitter</a>
           </div>
         </div>
