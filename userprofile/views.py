@@ -4,35 +4,31 @@ from django.contrib.auth import authenticate, login,logout
 from django.contrib import messages
 from django.conf import settings
 
-
-def get_user_data(reciept_no):
-    d={'12345':'Saurav',
-       '11111': 'Kanchan',
-       '99999': 'demo',
-       '22222':'neel',
-       '66666':'lol',
-       '00000':'superman',
-       '20006':'shreya',
-       '20000':'Yash',
-       '10000':'Puthran',
-       '30000':'Aditi',
-       '40000':'batman',
-       '50000':'hulk',
-       '60000':'timepass',
-       '33333':'Kunal'}
-    try:
-        return d[reciept_no]
-    except:
-        return False
-
 def profile(request):
     try:
         query=request.GET['q']
-        username=get_user_data(query)
-        if not username:
-            messages.add_message(request, messages.WARNING , 'No such reciept exists.')
-        user = User.objects.get_or_create(username=query, password=username,first_name=username)
-        login(request, user[0])
+        username=request.GET['r']
+        secret_key = request.GET['k']
+        if secret_key == "" and query!="":
+            messages.add_message(request, messages.WARNING, 'Wrong Secret Key')
+            return redirect("/")
+        try:
+            k = int(secret_key)
+            q = int(query)
+        except:
+            k=1
+            q=0
+        if k==(q**7+2*q+10000)%(10009):
+            if not username:
+                messages.add_message(request, messages.WARNING , 'No such reciept exists.')
+            try:
+                user = User.objects.get_or_create(username=query, password=username,first_name=username)
+            except:
+                messages.add_message(request,messages.WARNING, 'Username and Reciept No do not match')
+            login(request, user[0])
+        else:
+            messages.add_message(request, messages.WARNING, 'Wrong Secret Key')
+            return redirect("/")
     except:
         username=request.user.first_name
     return render(request,'profile.html',context={'username':username,'completed':request.user.profile.completed_levels < 1})
