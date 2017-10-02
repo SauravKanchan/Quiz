@@ -132,4 +132,4 @@ NUMBER_OF_QUESTIONS = 30
 LEVEL1_TIME_LIMIT = 30 #In minutes
 LEVEL1_POINTS = 10 # default points of level1 question
 LEVEL1_NEGATIVE_POINTS = 0
-LOGOUT_MESSAGE = "Thanks for taking part in Quiz" #name of our quiz/event
+LOGOUT_MESSAGE = "Thanks for taking part in Web Daeomon" #name of our quiz/event

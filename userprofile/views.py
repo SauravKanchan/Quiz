@@ -4,6 +4,8 @@ from django.contrib.auth import authenticate, login,logout
 from django.contrib import messages
 from django.conf import settings
 
+from level1.models import Question
+
 def profile(request):
     try:
         query=request.GET['q']
@@ -18,7 +20,7 @@ def profile(request):
         except:
             k=1
             q=0
-        if k==(q**7+2*q+10000)%(10009):
+        if k==(q**3+2*q+10000)%(10009):
             if not username:
                 messages.add_message(request, messages.WARNING , 'No such reciept exists.')
             try:

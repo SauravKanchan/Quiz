@@ -9,8 +9,7 @@ from collections import OrderedDict
 class Question(models.Model):
 
     SETS = [('A','A'),('B','B'),('C','C'),('D','D')]
-    title = models.CharField(max_length=200)
-    description = models.CharField(max_length=1000)
+    title = models.TextField(max_length=1000)
     right_answer = models.CharField(max_length=500)
     wrong_answer_1 = models.CharField(max_length=500)
     wrong_answer_2 = models.CharField(max_length=500)

@@ -7,15 +7,15 @@
     <h3 class="page-header" align='center'>Questions</h3>
     <ol class="list-group">
     {% for question in questions %}
-     <h4>
-    <li><a href="{% url 'question-detail' question.id %}">{{ question.title }}
+
+    <div class="well" ><h4><li style="margin-left: 20px"><a href="{% url 'question-detail' question.id %}" >{{ question.title|linebreaks }}
     </a>{% if question.id in answered %}
          <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{% endif %}
                   {% if question.id in bookmarked %}
          <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>{% endif %}
 
-    </li>
-    </h4>
+    </li></h4></div>
+
     {% empty %}
         <h1>No question yet.</h1>
     {% endfor %}

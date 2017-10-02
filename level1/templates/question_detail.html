@@ -7,7 +7,7 @@
     <div class='col-md-9'>
 
         <div class="panel panel-default">
-          <div class="panel-heading"><span>Q: </span>{{ object.title }}</div>
+          <div class="panel-heading"><span>Q: </span>{{ object.title|linebreaks }}</div>
           <div class="panel-body"><h3>{{object.description}}</h3></div>
         </div>
         {% csrf_token %}
