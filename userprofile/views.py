@@ -11,6 +11,9 @@ def profile(request):
         query=request.GET['q']
         username=request.GET['r']
         secret_key = request.GET['k']
+
+        email = request.GET['e']
+
         if secret_key == "" and query!="":
             messages.add_message(request, messages.WARNING, 'Wrong Secret Key')
             return redirect("/")
@@ -24,7 +27,7 @@ def profile(request):
             if not username:
                 messages.add_message(request, messages.WARNING , 'No such reciept exists.')
             try:
-                user = User.objects.get_or_create(username=query, password=username,first_name=username)
+                user = User.objects.get_or_create(username=query,email=email, password=username,first_name=username)
             except:
                 messages.add_message(request,messages.WARNING, 'Username and Reciept No do not match')
             login(request, user[0])
