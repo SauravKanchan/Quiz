@@ -2,4 +2,4 @@
 
 - [ ] Make a standalone website.
 
-- [ ] configure the site to web daemon 
+- [ ] configure the site to web
