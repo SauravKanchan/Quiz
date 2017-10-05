@@ -2,4 +2,4 @@
 
 - [ ] Make a standalone website.
 
-- [ ] configure the site to web
+- [ ] configure the site to
